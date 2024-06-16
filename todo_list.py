@@ -65,6 +65,17 @@ class TodoList:
         else:
             print(f"List '{name}' does not exist.")
 
+    def show_all_lists(self):
+        if not self.lists:
+            print("No lists available.")
+        else:
+            print("\nAll Lists:")
+            for list_name, tasks in self.lists.items():
+                print(f"\nList '{list_name}':")
+                for task in tasks:
+                    status = "✓" if task["completed"] else "✗"
+                    print(f"  {status} {task['name']}")
+
     def quit(self):
         print("Quitting program.")
         exit(0)
@@ -74,7 +85,7 @@ def main():
 
     while True:
         print("\nMain Menu")
-        print("Options: create <list name>, use <list name>, remove <list name>, quit")
+        print("Options: create <list name>, use <list name>, remove <list name>, show all lists, quit")
         option = input("Choose an option: ").strip().lower()
 
         if option == "quit":
@@ -88,6 +99,8 @@ def main():
         elif option.startswith("remove "):
             list_name = option[7:]
             todo_list.remove_list(list_name)
+        elif option == "show all lists":
+            todo_list.show_all_lists()
         else:
             print("Invalid option.")
 
